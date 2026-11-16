@@ -1,3 +1,4 @@
+import random
 import unittest
 
 from binary_search import binary_search_leftmost
@@ -53,6 +54,15 @@ class TestBinarySearchLeftmost(unittest.TestCase):
 
     def test_negative_numbers(self):
         self.assertEqual(binary_search_leftmost([-5, -3, -3, -1, 0], -3), 1)
+
+
+    def test_matches_builtin_index_on_random_lists(self):
+        rng = random.Random(42)
+        for _ in range(1000):
+            values = sorted(rng.randrange(0, 10) for _ in range(rng.randrange(0, 60)))
+            target = rng.randrange(0, 10)
+            expected = values.index(target) if target in values else -1
+            self.assertEqual(binary_search_leftmost(values, target), expected)
 
 
 if __name__ == "__main__":
