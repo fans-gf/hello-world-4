@@ -11,11 +11,38 @@ python3 hello_world_4.py
 # Hello, world!
 ```
 
+## Binary search
+
+```python
+from binary_search import binary_search_leftmost, lower_bound
+
+binary_search_leftmost([1, 2, 2, 2, 3], 2)  # 1 (leftmost exact match)
+binary_search_leftmost([1, 2, 3], 4)        # -1 (absent)
+lower_bound([1, 2, 2, 3], 2)                # 1 (insertion point, like bisect_left)
+```
+
+Input sequences must be sorted in non-decreasing order; the precondition is
+not validated and behavior on unsorted input is undefined.
+
 ## Running the tests
 
 ```bash
+python3 -m pip install -r requirements-dev.txt
 python3 -m unittest discover -v
 ```
 
-The tests run automatically on every push via GitHub Actions (see
+With coverage (must stay at 100%, enforced via `.coveragerc`):
+
+```bash
+coverage run -m unittest discover -v
+coverage report -m
+```
+
+Tests include example-based cases (empty/single/duplicate-heavy inputs, large
+arrays, string/float/tuple comparisons), an exhaustive check of every sorted
+multiset of length ≤ 7 over `{0,1,2,3}`, seeded randomized property tests
+against the built-in `list.index`, and Hypothesis property-based tests
+(`test_binary_search_hypothesis.py`) checked against the stdlib `bisect_left`.
+
+Tests run on every push and pull request via GitHub Actions (see
 [.github/workflows/test.yml](.github/workflows/test.yml)).

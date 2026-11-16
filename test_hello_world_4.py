@@ -18,5 +18,17 @@ class TestHello(unittest.TestCase):
             hello("   ")
 
 
+class TestMain(unittest.TestCase):
+    def test_main_prints_default_greeting(self):
+        import contextlib
+        import io
+        import runpy
+
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            runpy.run_module("hello_world_4", run_name="__main__")
+        self.assertEqual(buffer.getvalue().strip(), "Hello, world!")
+
+
 if __name__ == "__main__":
     unittest.main()

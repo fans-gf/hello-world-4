@@ -1,6 +1,8 @@
 """Binary search utilities.
 
 All functions assume their input sequence is sorted in non-decreasing order.
+The precondition is NOT validated: behavior on unsorted input is undefined
+(no exception is raised; results are meaningless).
 """
 
 from typing import Sequence, TypeVar
@@ -14,6 +16,7 @@ def lower_bound(values: Sequence[T], target: T) -> int:
     This is the index of the first element that is greater than or equal to
     *target* — equivalently, the position where *target* could be inserted to
     keep the sequence sorted. Runs in O(log n) time and O(1) space.
+    Behavior on unsorted input is undefined (no error is raised).
 
     >>> lower_bound([1, 2, 2, 2, 3], 2)
     1
@@ -35,6 +38,7 @@ def binary_search_leftmost(values: Sequence[T], target: T) -> int:
 
     Returns the index of the first occurrence of *target*, or -1 if *target*
     is not present. Runs in O(log n) time and O(1) space.
+    Behavior on unsorted input is undefined (no error is raised).
 
     >>> binary_search_leftmost([1, 2, 2, 2, 3], 2)
     1
